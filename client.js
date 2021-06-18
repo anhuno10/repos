@@ -1,4 +1,4 @@
-
+//js
 function openBook(book, page) {
   var info = {};
   info["book"] = book;

@@ -1,5 +1,5 @@
 <?php
-
+//server side business logic again again
 if (isset($_POST['action']) && !empty($_POST['action'])) {
     $action = $_POST['action'];
     switch ($action) {
