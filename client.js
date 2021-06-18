@@ -1,4 +1,4 @@
-//js something
+//js something else
 function openBook(book, page) {
   var info = {};
   info["book"] = book;
