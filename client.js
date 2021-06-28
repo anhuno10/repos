@@ -1,5 +1,6 @@
 //js something else otros cambios del master
 //this is something else in the master
+//safasfas hot fix
 function openBook(book, page) {
   var info = {};
   info["book"] = book;
