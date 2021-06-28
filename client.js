@@ -1,4 +1,4 @@
-//js something else
+//js something else otros cambios del master
 function openBook(book, page) {
   var info = {};
   info["book"] = book;
