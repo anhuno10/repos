@@ -1,4 +1,5 @@
-//js something else only for testing branch
+//js something else only for testing branch, 
+//something specific for this iss50 branch
 function openBook(book, page) {
   var info = {};
   info["book"] = book;
