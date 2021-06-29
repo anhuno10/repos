@@ -1,6 +1,5 @@
-//js something else otros cambios del master
-//this is something else in the master
-//safasfas hot fix
+//js something else only for testing branch, 
+//something specific for this iss50 branch
 function openBook(book, page) {
   var info = {};
   info["book"] = book;
