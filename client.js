@@ -12,6 +12,7 @@ function openBook(book, page) {
       if(output == "No book"){
         alert ("Book selected not added yet");
       }
+      //let's do something around here
       else{
         window.open (output);
       }
