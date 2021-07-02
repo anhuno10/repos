@@ -18,3 +18,5 @@ doc/**/*.pdf
 
 #ignore all book pdfs
 /books
+#ignore uploads
+/uploads
