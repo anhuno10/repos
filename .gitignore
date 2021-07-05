@@ -20,3 +20,4 @@ doc/**/*.pdf
 /books
 #ignore uploads
 /uploads
+.vscode
