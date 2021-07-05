@@ -13,8 +13,9 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
             echo "open standard";
             openStandard($_POST['info']);
             break;
-        case 'searchStandard':
-            echo "search standard";
+        case 'showAllStoredImages':
+            echo "show all stored images";
+            showAllImages();
             break;
     }
 }
@@ -23,7 +24,7 @@ if (isset($_POST['submit_image'])) {
     uploadFile();
 }
 
-if (isset($_POST['standard_name'])) {
+if (isset($_POST['standard_name']) && !empty($_POST['standard_name'])) {
     $standard_name = $_POST['standard_name'];
     searchStandard($standard_name);
 }
@@ -166,4 +167,34 @@ function uploadFile()
             echo "Sorry, there was an error uploading your file.";
         }
     }
+}
+function showAllImages()
+{
+    global $servername, $username, $password, $dbname;
+    $link = mysqli_connect($servername, $username, $password, $dbname);
+    if ($link === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    $sql = "SELECT * FROM images";
+
+    if ($result = mysqli_query($link, $sql)) {
+        if (mysqli_num_rows($result) > 0) {
+            $output_string = '';
+            $output_string .=  '<table border="1">';
+            while ($row = mysqli_fetch_array($result)) {
+                $output_string .= '<tr>';
+                $output_string .= '<td>' . $row['image_path'] . '</td>';
+                $output_string .= '</tr>';
+            }
+            $output_string .= '</table>';
+            echo $output_string;
+        } else {
+            echo "No images are uploaded";
+        }
+    } else {
+        echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+    }
+    // Close connection
+    mysqli_close($link);
 }
