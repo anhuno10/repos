@@ -10,12 +10,13 @@ if (isset($_POST['action']) && !empty($_POST['action'])) {
 
     switch ($action) {
         case 'openStandard':
-            echo "open standard";
             openStandard($_POST['info']);
             break;
         case 'showAllStoredImages':
-            echo "show all stored images";
             showAllImages();
+            break;
+        case 'deleteStoredImage':
+            deleteStoredImage($_POST['info']);
             break;
     }
 }
@@ -163,6 +164,8 @@ function uploadFile()
             }
 
             $conn->close();
+            //give file permission 
+            chmod($target_file, 0777);
         } else {
             echo "Sorry, there was an error uploading your file.";
         }
@@ -185,16 +188,43 @@ function showAllImages()
             while ($row = mysqli_fetch_array($result)) {
                 $output_string .= '<tr>';
                 $output_string .= '<td>' . $row['image_path'] . '</td>';
+                $output_string .= '<td> <button onClick="openImage(\'' . $row['image_path'] . '\')">Open</button> </td>';
+                $output_string .= '<td> <button onClick="deleteImage(\'' . $row['id'] . '\', \'' . $row['image_path'] . '\')">Delete</button> </td>';
                 $output_string .= '</tr>';
             }
             $output_string .= '</table>';
             echo $output_string;
+            mysqli_free_result($result);
         } else {
             echo "No images are uploaded";
         }
     } else {
         echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
     }
+    // Close connection
+    mysqli_close($link);
+}
+function deleteStoredImage($info)
+{
+
+    $id = $info["id"];
+    $image_path = $info["image_path"];
+
+    global $servername, $username, $password, $dbname;
+    $link = mysqli_connect($servername, $username, $password, $dbname);
+    if ($link === false) {
+        die("ERROR: Could not connect. " . mysqli_connect_error());
+    }
+
+    $sql = "DELETE FROM images WHERE id = $id";
+
+    if ($link->query($sql) === TRUE) {
+        echo "Record deleted successfully";
+        rename($image_path, $image_path . "_old");
+    } else {
+        echo "Error deleting record: " . $link->error;
+    }
+
     // Close connection
     mysqli_close($link);
 }

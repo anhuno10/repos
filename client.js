@@ -19,22 +19,39 @@ function openBook(book, page) {
 }
 
 function showAllStoredImages() {
-  console.log("show all stored images");
   $.ajax({
     url: 'server_side.php',
     data: { action: "showAllStoredImages" },
     type: 'post',
     success: function (output) {
-      console.log (output)
-      $('#result_table').append(output);
+      //if the div is empty, load it for the first time
+      if (!$.trim($('#result_table').html()).length) {
+        $('#result_table').append(output);
+      }
+      //if it's not empty, refresh it
+      else {
+        $('#result_table').html('');
+        $('#result_table').append(output);
+      }
     }
   });
 }
 
-function deleteImage() {
-
+function deleteImage(id, image_path) {
+  var info = {};
+  info["id"] = id;
+  info["image_path"] = image_path;
+  $.ajax({
+    url: 'server_side.php',
+    data: { action: "deleteStoredImage", info: info },
+    type: 'post',
+    success: function (output) {
+      alert("Image has been deleted");
+      showAllStoredImages();
+    }
+  });
 }
 
-function openImage() {
-
+function openImage(imagePath) {
+  window.open(imagePath);
 }

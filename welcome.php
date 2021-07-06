@@ -20,9 +20,10 @@
   <form action="" method="post" enctype="multipart/form-data" id="image_upload_form">
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload Image" name="submit_image">
-    <button onClick="showAllStoredImages()">Show all</button>
-    <input type="text" placeholder="Search real books..." name="standard_name" id="standard_name">
+    <input type="text" placeholder="Search images..." name="standard_name" id="standard_name">
   </form>
+  <br>
+  <button onClick="showAllStoredImages()">Show all</button>
   
   <?php include_once("server_side.php") ?>
   <div id='result_table'>
